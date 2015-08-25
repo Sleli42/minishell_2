@@ -6,11 +6,13 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 14:42:32 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/06/05 16:39:39 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/25 22:46:30 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
+
 
 int				count_words(char *s, char c)
 {

@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/25 03:48:48 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/25 23:15:36 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,16 @@ typedef struct			s_dlist
 typedef struct			s_all
 {
 	t_dlist				*env;
+	char				*cmd;
+	char				**path2exec;
 }						t_all;
 
+typedef	struct			s_builtins
+{
+	char				*builtin_name;
+	void				(*f)(t_all *);
+
+}						t_builtins;
 /*
 ***	init.c
 */
@@ -56,4 +64,5 @@ void			error(char *err);
 ***	debug.c
 */
 void			display_env(t_node *env);
+void			display_tab(char **tab);
 #endif
