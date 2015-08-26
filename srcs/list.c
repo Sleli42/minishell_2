@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:12:26 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/25 03:41:32 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/26 02:58:08 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,55 @@ t_dlist		*dlst_add_back(t_dlist *lst, t_node *node)
 	return (lst);
 }
 
-// t_dlist		*dlst_del_one(t_dlist *lst, int data2del)
-// {
-// 	t_node	*tmp;
-// 	int		found;
+t_dlist		*dlst_del_one(t_dlist *lst, char *arg2del)
+{
+	t_node	*tmp;
+	int		found;
 
-// 	tmp = lst->head;
-// 	found = 0;
-// 	if (lst)
-// 	{
-// 		while (tmp && !found)
-// 		{
-// 			if (tmp->data == data2del)
-// 			{
-// 				if (!tmp->next && !tmp->prev)
-// 				{
-// 					free(lst);
-// 					lst = create_dlst();
-// 					return (lst);
-// 				}
-// 				else
-// 					found = update_list(lst, tmp);
-// 				free(tmp);
-// 			}
-// 			tmp = tmp->next;
-// 		}
-// 	}
-// 	return (lst);
-// }
+	tmp = lst->head;
+	found = 0;
+	if (lst)
+	{
+		while (tmp && !found)
+		{
+			if (ft_strncmp(tmp->s, arg2del, ft_strlen(arg2del)) == 0)
+			{
+				if (!tmp->next && !tmp->prev)
+				{
+					ft_strdel(&lst->head->s);
+					free(lst);
+					lst = create_dlst();
+				}
+				else
+					found = update_list(lst, tmp);
+				free(tmp);
+			}
+			tmp = tmp->next;
+		}
+	}
+	return (lst);
+}
+
+int		update_list(t_dlist *lst, t_node *elem)
+{
+	if (!elem->next && elem->prev)
+	{
+		lst->tail = elem->prev;
+		lst->tail->next = NULL;
+		ft_strdel(&elem->s);
+	}
+	else if (!elem->prev && elem->next)
+	{
+		lst->head = elem->next;
+		lst->head->prev = NULL;
+		ft_strdel(&elem->s);
+	}
+	else
+	{
+		elem->prev->next = elem->next;
+		elem->next->prev = elem->prev;
+		ft_strdel(&elem->s);
+	}
+	lst->lenght--;
+	return (1);
+}

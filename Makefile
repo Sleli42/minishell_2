@@ -6,7 +6,7 @@
 #    By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/12 19:50:41 by lubaujar          #+#    #+#              #
-#    Updated: 2015/08/25 03:45:37 by lubaujar         ###   ########.fr        #
+#    Updated: 2015/08/26 04:05:54 by lubaujar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,9 @@ LDFLAGS = -I./include/ -I./libft/include/
 SRC = main.c \
 	init.c \
 	list.c \
+	env.c \
+	commands.c \
+	tools.c \
 	error.c \
 	debug.c
 

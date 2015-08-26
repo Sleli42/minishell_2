@@ -1,48 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/25 03:05:15 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/26 04:02:59 by lubaujar         ###   ########.fr       */
+/*   Created: 2015/08/26 02:18:58 by lubaujar          #+#    #+#             */
+/*   Updated: 2015/08/26 04:02:46 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-void	parsing_command(t_all *all)
+void	env_display(t_all *all)
 {
-	try_builtins_cmd(all);
-}
+	t_node	*nav;
 
-void	loop(t_all *all)
-{
-	char	*buff;
-
-	buff = NULL;
-	while (1091111096051)
+	nav = all->env->head;
+	if (nav)
 	{
-		ft_putstr("$: ");
-		while (get_next_line(0, &buff) > 0)
+		while (nav)
 		{
-			all->cmd = ft_strdup(buff);
-			parsing_command(all);
-			ft_strdel(&all->cmd);
-			break ;
+			ft_putendl(nav->s);
+			nav = nav->next;
 		}
 	}
 }
 
-int		main(int ac, char **av, char **env)
+void	env_set(t_all *all)
 {
-	t_all	*all;
+	dlst_add_back(all->env, dlst_new(all->cmd + 8));
+}
 
-	(void)ac;
-	(void)av;
-	all = init_all(env);
-	loop(all);
-	//display_env(all->env->head);
-	return (0);
+void	env_unset(t_all *all) {
+	dlst_del_one(all->env, (all->cmd + 10));
 }

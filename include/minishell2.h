@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/25 23:15:36 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/26 04:07:50 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct			s_all
 {
 	t_dlist				*env;
 	char				*cmd;
+	char				*oldpwd;
 	char				**path2exec;
 }						t_all;
 
@@ -56,6 +57,24 @@ t_all			*init_all(char **env);
 t_dlist			*create_dlst(void);
 t_node			*dlst_new(char *data);
 t_dlist			*dlst_add_back(t_dlist *lst, t_node *node);
+t_dlist			*dlst_del_one(t_dlist *lst, char *arg2del);
+int				update_list(t_dlist *lst, t_node *elem);
+/*
+***	env.c
+*/
+void			env_display(t_all *all);
+void			env_set(t_all *all);
+void			env_unset(t_all *all);
+/*
+***	builtins.c
+*/
+void			try_builtins_cmd(t_all *all);
+/*
+***	tools.c
+*/
+void			pwd_display(t_all *all);
+void			goto_dir(t_all *all);
+void			free_all(t_all *all);
 /*
 ***	error.c
 */
