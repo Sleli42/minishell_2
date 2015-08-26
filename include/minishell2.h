@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/26 04:07:50 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/26 04:12:12 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void			try_builtins_cmd(t_all *all);
 /*
 ***	tools.c
 */
+void			update_OLDPWD(t_all *all);
 void			pwd_display(t_all *all);
+char			*find_oldpwd_arg(t_all *all);
 void			goto_dir(t_all *all);
 void			free_all(t_all *all);
 /*
