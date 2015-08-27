@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 04:12:12 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 06:38:52 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 07:36:24 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@ int		multiple_cmd(char *cmd)
 
 int		try_builtins_cmd(t_all *all)
 {
-	int				i;
-	t_builtins		built[] =
+	int							i;
+	static const t_builtins		built[] =
 
-	{
-		{"env", env_display},
-		{"set env", env_set},
-		{"unset env", env_unset},
-		{"pwd", pwd_display},
-		{"cd", goto_dir},
-		{"exit", free_all}
-	};
+	{{"env", env_display},
+	{"set env", env_set},
+	{"unset env", env_unset},
+	{"pwd", pwd_display},
+	{"cd", goto_dir},
+	{"exit", free_all}};
 	i = 0;
 	while (i < 6)
 	{

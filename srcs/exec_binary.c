@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 22:03:11 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 06:33:27 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 07:40:17 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	exec_binary(char *bin, char **argv_bin, char **env)
 	pid_t	pid;
 
 	pid = fork();
-	/* catch sig */
+/*
+*** catch sig ***
+*/
 	if (pid == -1)
 		ft_putendl("No child process");
 	if (pid == 0)

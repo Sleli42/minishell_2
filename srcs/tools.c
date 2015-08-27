@@ -6,13 +6,13 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 02:27:17 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/26 22:54:51 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 07:38:53 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-void	update_OLDPWD(t_all *all)
+void	update_oldpwd(t_all *all)
 {
 	t_node	*nav;
 	char	*buff;
@@ -78,7 +78,7 @@ void	goto_dir(t_all *all)
 	{
 		if (chdir(all->cmd) == -1)
 			error("DIR");
-		update_OLDPWD(all);
+		update_oldpwd(all);
 	}
 }
 
@@ -92,8 +92,6 @@ void	free_all(t_all *all)
 		del_array(&all->dupenv);
 	if (all->cmd != NULL)
 		ft_strdel(&all->cmd);
-	// if (all->oldpwd != NULL)
-	// 	ft_strdel(&all->oldpwd);
 	free(all);
 	all = NULL;
 	exit(21);

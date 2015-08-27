@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 02:18:58 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/26 22:01:54 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 07:36:48 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ void	env_display(t_all *all)
 	}
 }
 
-void	env_set(t_all *all) {
+void	env_set(t_all *all)
+{
 	dlst_add_back(all->env, dlst_new(all->cmd + 8));
 }
 
-void	env_unset(t_all *all) {
+void	env_unset(t_all *all)
+{
 	dlst_del_one(all->env, (all->cmd + 10));
 }

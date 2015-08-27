@@ -6,13 +6,13 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:12:26 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 06:19:30 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 07:39:21 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-t_dlist		*create_dlst(void)
+t_dlist			*create_dlst(void)
 {
 	t_dlist	*new;
 
@@ -26,7 +26,7 @@ t_dlist		*create_dlst(void)
 	return (new);
 }
 
-t_node		*dlst_new(char *data)
+t_node			*dlst_new(char *data)
 {
 	t_node	*new;
 
@@ -40,7 +40,7 @@ t_node		*dlst_new(char *data)
 	return (new);
 }
 
-t_dlist		*dlst_add_back(t_dlist *lst, t_node *node)
+t_dlist			*dlst_add_back(t_dlist *lst, t_node *node)
 {
 	if (lst && node)
 	{
@@ -60,7 +60,7 @@ t_dlist		*dlst_add_back(t_dlist *lst, t_node *node)
 	return (lst);
 }
 
-t_dlist		*dlst_del_one(t_dlist *lst, char *arg2del)
+t_dlist			*dlst_del_one(t_dlist *lst, char *arg2del)
 {
 	t_node	*tmp;
 	int		found;
@@ -89,7 +89,7 @@ t_dlist		*dlst_del_one(t_dlist *lst, char *arg2del)
 	return (lst);
 }
 
-int		update_list(t_dlist *lst, t_node *elem)
+int				update_list(t_dlist *lst, t_node *elem)
 {
 	if (!elem->next && elem->prev)
 	{

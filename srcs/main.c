@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:15 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 06:40:50 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 07:37:19 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,18 @@ void	parsing_command(t_all *all)
 	ct = 0;
 	if (multiple_cmd(all->cmd))
 	{
-		all->cmd = ft_epur_str(all->cmd);
 		multi_cmd = ft_strsplit(all->cmd, ';');
-		while (multi_cmd[ct++])
+		while (multi_cmd[ct] != NULL)
+		{
+			ft_strdel(&all->cmd);
+			all->cmd = ft_epur_str(multi_cmd[ct]);
+			if (all->cmd[ft_strlen(all->cmd) - 1] == ' ')
+				all->cmd[ft_strlen(all->cmd) - 1] = '\0';
 			if (!try_builtins_cmd(all))
 				try_exec_cmd(all);
-		//del_array(&multi_cmd);
+			ct++;
+		}
+		del_array(&multi_cmd);
 	}
 	else
 	{

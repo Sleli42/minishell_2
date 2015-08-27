@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 06:39:17 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 07:37:37 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
 ***	tools.c
 */
-void			update_OLDPWD(t_all *all);
+void			update_oldpwd(t_all *all);
 void			pwd_display(t_all *all);
 char			*find_oldpwd_arg(t_all *all);
 void			goto_dir(t_all *all);

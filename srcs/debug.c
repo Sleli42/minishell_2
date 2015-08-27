@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:29:45 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/25 22:42:18 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 07:34:26 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	display_tab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("%s\n", tab[i]);
+		ft_putendl(tab[i]);
 		i++;
 	}
 }
