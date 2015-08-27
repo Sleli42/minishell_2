@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 07:37:37 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 23:30:00 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,15 @@ int				multiple_cmd(char *cmd);
 int				try_builtins_cmd(t_all *all);
 void			try_exec_cmd(t_all *all);
 /*
-***	exec_binary.c.c
+***	exec_binary.c
 */
 int				good_access(char *bin);
 char			*create_path(char *path, char *bin);
 void			exec_right_binary(t_all *all, char **argv_bin);
 void			exec_binary(char *bin, char **argv_bin, char **env);
+/*
+***	redirection.c
+*/
 /*
 ***	tools.c
 */
