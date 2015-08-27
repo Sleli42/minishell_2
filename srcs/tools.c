@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 02:27:17 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/26 04:03:59 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/26 22:54:51 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,14 @@ void	free_all(t_all *all)
 {
 	while (all->env->lenght-- != 0)
 		dlst_del_one(all->env, all->env->head->s);
-	del_array(&all->path2exec);
-	if (all->oldpwd)
-		ft_strdel(&all->oldpwd);
-	if (all->cmd)
+	if (all->path2exec != NULL)
+		del_array(&all->path2exec);
+	if (all->dupenv != NULL)
+		del_array(&all->dupenv);
+	if (all->cmd != NULL)
 		ft_strdel(&all->cmd);
+	// if (all->oldpwd != NULL)
+	// 	ft_strdel(&all->oldpwd);
 	free(all);
 	all = NULL;
 	exit(21);

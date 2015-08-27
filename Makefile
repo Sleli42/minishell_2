@@ -6,7 +6,7 @@
 #    By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/12 19:50:41 by lubaujar          #+#    #+#              #
-#    Updated: 2015/08/26 04:05:54 by lubaujar         ###   ########.fr        #
+#    Updated: 2015/08/27 06:18:58 by lubaujar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC = main.c \
 	list.c \
 	env.c \
 	commands.c \
+	exec_binary.c \
 	tools.c \
 	error.c \
 	debug.c

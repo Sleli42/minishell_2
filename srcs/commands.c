@@ -6,13 +6,24 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 04:12:12 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/26 04:09:36 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 06:38:52 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-void	try_builtins_cmd(t_all *all)
+int		multiple_cmd(char *cmd)
+{
+	while (*cmd)
+	{
+		if (*cmd == ';')
+			return (1);
+		cmd++;
+	}
+	return (0);
+}
+
+int		try_builtins_cmd(t_all *all)
 {
 	int				i;
 	t_builtins		built[] =
@@ -30,12 +41,20 @@ void	try_builtins_cmd(t_all *all)
 	{
 		if (ft_strncmp(all->cmd, built[i].builtin_name,
 			ft_strlen(built[i].builtin_name)) == 0)
+		{
 			built[i].f(all);
+			return (1);
+		}
 		i++;
 	}
+	return (0);
 }
 
 void	try_exec_cmd(t_all *all)
 {
+	char	**argv_bin;
 
+	all->cmd = ft_epur_str(all->cmd);
+	argv_bin = ft_strsplit(all->cmd, ' ');
+	exec_right_binary(all, argv_bin);
 }

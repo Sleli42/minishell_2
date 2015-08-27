@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 10:00:01 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/07/31 21:14:32 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/26 22:14:12 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int					ft_rand_a_b(int a, int b);
 int					ft_intlen(int nb);
 size_t				ft_tablen(char **tab);
 void				del_array(char ***array);
+char				*ft_epur_str(char *s);
 int					lst_len(t_list *lst);
 int					get_next_line(int const fd, char **line);
 

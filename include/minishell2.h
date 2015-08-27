@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/26 04:12:12 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/27 06:39:17 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct			s_all
 	t_dlist				*env;
 	char				*cmd;
 	char				*oldpwd;
+	char				**dupenv;
 	char				**path2exec;
 }						t_all;
 
@@ -51,6 +52,7 @@ typedef	struct			s_builtins
 ***	init.c
 */
 t_all			*init_all(char **env);
+char			**ft_dupenv(char **env);
 /*
 ***	list.c
 */
@@ -66,9 +68,18 @@ void			env_display(t_all *all);
 void			env_set(t_all *all);
 void			env_unset(t_all *all);
 /*
-***	builtins.c
+***	commandes.c
 */
-void			try_builtins_cmd(t_all *all);
+int				multiple_cmd(char *cmd);
+int				try_builtins_cmd(t_all *all);
+void			try_exec_cmd(t_all *all);
+/*
+***	exec_binary.c.c
+*/
+int				good_access(char *bin);
+char			*create_path(char *path, char *bin);
+void			exec_right_binary(t_all *all, char **argv_bin);
+void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
 ***	tools.c
 */
