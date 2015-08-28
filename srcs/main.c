@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:15 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 08:34:58 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 23:12:54 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	exec_command(t_all *all)
 		all->cmd = ft_epur_str(all->cmd2exec[ct]);
 		if (all->cmd[ft_strlen(all->cmd) - 1] == ' ')
 			all->cmd[ft_strlen(all->cmd) - 1] = '\0';
-		// if (all->cmd)
-		if (try_builtins_cmd(all) == 0)
-			try_exec_cmd(all);
+		if (!try_redirection_cmd(all))
+			if (!try_builtins_cmd(all))
+				try_exec_cmd(all);
 		ct++;
 	}
 	del_array(&all->cmd2exec);

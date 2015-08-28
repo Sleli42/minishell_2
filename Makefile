@@ -6,7 +6,7 @@
 #    By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/12 19:50:41 by lubaujar          #+#    #+#              #
-#    Updated: 2015/08/28 06:08:34 by lubaujar         ###   ########.fr        #
+#    Updated: 2015/08/28 23:24:42 by lubaujar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = main.c \
 	env.c \
 	commands.c \
 	exec_binary.c \
+	redirection.c \
 	tools.c \
 	error.c \
 	signal.c \

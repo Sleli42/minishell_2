@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/27 23:29:15 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 00:07:31 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 23:17:56 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,25 @@
 *** "echo lulu > auteur | cat auteur | echo lulu >> auteur2 | cat -e auteur2"
 *** ==		$> lulu$
 *** n'execute toujours pas le 1er cat, il execute uniquement le dernier bin.
+
+
+*** int dup2(int oldfd, int newfd);
+*** dup2() transforme newfd en une copie de oldfd, fermant auparavant newfd
+       si besoin est, mais prenez note des points suivants.
  				      ======================================================= */
+
+int		check_redirection(char *cmd)
+{
+	if (cmd && *cmd)
+	{
+		while (*cmd)
+		{
+			if (*cmd == '>' || *cmd == '<'
+				|| (*cmd == '>' && (*cmd +1) == '>')
+				|| (*cmd == '<' && (*cmd +1) == '<'))
+				return (1);
+			cmd++;
+		}
+	}
+	return (0);
+}

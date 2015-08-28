@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 07:36:54 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 23:29:49 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,15 @@ typedef struct			s_all
 	char				**dupenv;
 	char				**cmd2exec;
 	char				**path2exec;
+	char				**redirection;
 }						t_all;
 
-typedef	struct			s_builtins
+typedef	struct			s_action
 {
-	char				*builtin_name;
+	char				*action_name;
 	void				(*f)(t_all *);
 
-}						t_builtins;
+}						t_action;
 
 //void	loop(t_all *all);
 /*
@@ -74,6 +75,7 @@ void			env_unset(t_all *all);
 ***	commandes.c
 */
 int				multiple_cmd(char *cmd);
+int				try_redirection_cmd(t_all *all);
 int				try_builtins_cmd(t_all *all);
 void			try_exec_cmd(t_all *all);
 /*
@@ -86,6 +88,7 @@ void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
 ***	redirection.c
 */
+int				check_redirection(char *cmd);
 /*
 ***	tools.c
 */
