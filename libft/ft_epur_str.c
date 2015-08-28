@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 22:05:55 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 07:20:53 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 07:30:14 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ char	*ft_epur_str(char *s)
 		}
 		ret[j++] = s[i++];
 	}
-	// if (ret[j - 1] == ' ' || ret[j - 1] == '\t')
-	// 	ret[j - 1] = '\0';
-	// else
 	ret[j] = '\0';
 	return (ret);
 }

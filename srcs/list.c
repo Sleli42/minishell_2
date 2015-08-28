@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:12:26 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 07:39:21 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 06:04:26 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ t_dlist			*dlst_del_one(t_dlist *lst, char *arg2del)
 				{
 					ft_strdel(&lst->head->s);
 					free(lst);
-					lst = create_dlst();
 				}
 				else
 					found = update_list(lst, tmp);
+				lst->lenght--;
 				free(tmp);
 			}
 			tmp = tmp->next;

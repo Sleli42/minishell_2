@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:07:46 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 05:28:45 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 07:05:03 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_all	*init_all(char **env)
 		error("MALLOC");
 	all->dupenv = ft_dupenv(env);
 	all->env = create_dlst();
+	all->cmd2exec = NULL;
 	all->cmd = NULL;
 	while (env[i])
 		dlst_add_back(all->env, dlst_new(env[i++]));

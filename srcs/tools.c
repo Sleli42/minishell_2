@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 02:27:17 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 05:36:49 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 06:07:58 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ void	free_all(t_all *all)
 		ft_strdel(&all->cmd);
 	free(all);
 	all = NULL;
+	ft_putendl("exit");
 	exit(21);
 }

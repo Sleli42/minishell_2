@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 05:24:53 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 07:36:54 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct			s_all
 	char				*cmd;
 	char				*oldpwd;
 	char				**dupenv;
+	char				**cmd2exec;
 	char				**path2exec;
 }						t_all;
 
@@ -48,6 +49,8 @@ typedef	struct			s_builtins
 	void				(*f)(t_all *);
 
 }						t_builtins;
+
+//void	loop(t_all *all);
 /*
 ***	init.c
 */
@@ -95,6 +98,12 @@ void			free_all(t_all *all);
 ***	error.c
 */
 void			error(char *err);
+/*
+***	signal.c
+*/
+t_all			*f_cpy(t_all *list);
+void			ft_func(int sig);
+void			ft_catch_sig(void);
 /*
 ***	debug.c
 */
