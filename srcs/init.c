@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:07:46 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 07:38:12 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 05:28:45 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ t_all	*init_all(char **env)
 	all->cmd = NULL;
 	while (env[i])
 		dlst_add_back(all->env, dlst_new(env[i++]));
-	all->path2exec = ft_strsplit(all->env->head->s + 6, ':');
+	all->path2exec = ft_strsplit(find_env_arg(all, "PATH") + 6, ':');
 	return (all);
 }

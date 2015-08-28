@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 02:27:17 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 07:38:53 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/28 05:36:49 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	pwd_display(t_all *all)
 	ft_putendl(pwd);
 }
 
-char	*find_oldpwd_arg(t_all *all)
+char	*find_env_arg(t_all *all, char *arg2find)
 {
 	t_node		*nav;
 
@@ -54,8 +54,8 @@ char	*find_oldpwd_arg(t_all *all)
 	{
 		while (nav)
 		{
-			if (ft_strncmp(nav->s, "OLDPWD", 6) == 0)
-				return (nav->s + 7);
+			if (ft_strncmp(nav->s, arg2find, ft_strlen(arg2find)) == 0)
+				return (nav->s);
 			nav = nav->next;
 		}
 	}
@@ -73,7 +73,7 @@ void	goto_dir(t_all *all)
 	if (all->cmd[0] == '\0')
 		all->cmd = ft_strdup("/nfs/zfs-student-5/users/2014/lubaujar/");
 	else if (all->cmd[0] == '-')
-		all->cmd = ft_strdup(find_oldpwd_arg(all));
+		all->cmd = ft_strdup(find_env_arg(all, "OLDPWD") + 7);
 	if (access(all->cmd, F_OK) == 0)
 	{
 		if (chdir(all->cmd) == -1)
