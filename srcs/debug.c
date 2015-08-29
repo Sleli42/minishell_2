@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:29:45 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/27 07:34:26 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 10:12:36 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ void	display_tab(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	if (tab && *tab)
 	{
-		ft_putendl(tab[i]);
-		i++;
+		while (tab[i])
+		{
+			printf("|%s|\n", tab[i]);
+			i++;
+		}
 	}
 }

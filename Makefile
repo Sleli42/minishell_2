@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+         #
+#    By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/12 19:50:41 by lubaujar          #+#    #+#              #
-#    Updated: 2015/08/28 23:24:42 by lubaujar         ###   ########.fr        #
+#    Updated: 2015/08/29 22:39:19 by sleli42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ $(NAME): $(OBJS) $(INCS)
 	@echo "\\033[1;34m\t\texec ./minishell2\\033[0;39m"
 
 $(OBJS): $(SRCS)
-	make -C libft/
+	@make -C libft/
 	@gcc $(FLAGS) -c $(SRCS) $(LDFLAGS)
 	@echo "\\033[1;34mPlease wait ...\\033[0;39m"
 	@mkdir -p $(OBJDIR)
@@ -55,7 +55,7 @@ clean:
 	@$(RM) *.o
 
 fclean: clean
-	make fclean -C libft/
+	@make fclean -C libft/
 	@echo "RM ./ft_minishell..   \033[35mDELETE!\033[0m"
 	@$(RM) $(NAME)
 

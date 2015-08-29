@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell2.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/29 04:35:03 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 10:02:09 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define MINISHELL2_H
 
 # include <stdio.h>
-
+# include <sys/types.h>/*			UBUNTU				*/
+# include <sys/wait.h>/*			UBUNTU				*/
 # include <unistd.h>
+
 # include <stdlib.h>
 # include "libft.h"
 

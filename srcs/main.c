@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:15 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 23:12:54 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 10:02:51 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ char	**parse_command(char *cmd)
 
 void	loop(t_all *all)
 {
-	int		i;
 	char	*buff;
 
-	i = 0;
 	buff = NULL;
 	//f_cpy(all);
 	while (1)

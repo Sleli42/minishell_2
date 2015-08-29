@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 02:27:17 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 06:07:58 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 10:04:19 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	update_oldpwd(t_all *all)
 {
 	t_node	*nav;
-	char	*buff;
 
 	nav = all->env->head;
-	buff = NULL;
 	if (nav)
 	{
 		while (nav)
