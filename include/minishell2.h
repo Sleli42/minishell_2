@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 23:29:49 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 04:35:03 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct			s_all
 {
 	t_dlist				*env;
 	char				*cmd;
+	char				*redirect_cmd;
 	char				*oldpwd;
 	char				**dupenv;
 	char				**cmd2exec;
@@ -89,6 +90,10 @@ void			exec_binary(char *bin, char **argv_bin, char **env);
 ***	redirection.c
 */
 int				check_redirection(char *cmd);
+void			erase_and_replace(t_all *all);
+void			add_to_end(t_all *all);
+void			read_file(t_all *all);
+void			read_stdin(t_all *all);
 /*
 ***	tools.c
 */

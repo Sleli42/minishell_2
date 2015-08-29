@@ -6,29 +6,35 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/28 23:30:44 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 23:36:26 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 05:06:54 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*my_strstr(char *s, char *tofind)
+char	*my_strstr(char *s)
 {
-	char	*ret;
+	char	*tmp;
 	int		i;
-	int		j;
 
-	ret = NULL;
+	tmp = s;
 	i = 0;
-	j = ft_strlen(tofind);
-	while (s[i])
+	while (tmp[i])
 	{
-		if (s[i] == tofind[j])
-			j--;
-		if (j == 0)
+		// (s[i] == '>' && s[i + 1] == ' ') ? return(ft_strdup(">") : return(NULL));
+		if (tmp[i] == '>')
 		{
-			ret = ft_strdup(tofind);
-			return (ret);
+			if (tmp[i + 1] == '>' && tmp[i + 2] == ' ')
+				return (">>");
+			else
+				return (">");
+		}
+		else if (tmp[i] == '<')
+		{
+			if (tmp[i + 1] == '<' && tmp[i + 2] == ' ')
+				return ("<<");
+			else
+				return ("<");
 		}
 		i++;
 	}

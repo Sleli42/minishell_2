@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 04:12:12 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 23:36:30 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 05:09:51 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,26 @@ int		try_redirection_cmd(t_all *all)
 	int							i;
 	static const	t_action	redirection[] =
 
-	{{">", erase_ans_replace},
+	{{">", erase_and_replace},
 	{">>", add_to_end},
 	{"<", read_file},
 	{"<<", read_stdin}};
+	printf("cmd: %s\n", all->cmd);
 	i = 0;
-	while (i < 4)
+	all->redirect_cmd = my_strstr(all->cmd);
+	if (all->redirect_cmd != NULL)
 	{
-		if (ft_strcmp(my_strstr(all->cmd, redirection[i].action_name),
-		 redirection[i].action_name) == 0)
-			printf("found: %s\n", redirection[i].action_name);
-		i++;
+		while (i < 4)
+		{
+			if (ft_strcmp(all->redirect_cmd, redirection[i].action_name) == 0)
+			{
+				redirection[i].f(all);
+				return (1);
+			}
+			i++;
+		}
 	}
-	// if (!check_redirection(all->cmd))
-	// 	return (0);
-	// all->redirection = ft_strsplit(all->cmd);
-	// display_tab(all->redirection);
-	exit(1);
+	return (0);
 }
 
 int		try_builtins_cmd(t_all *all)

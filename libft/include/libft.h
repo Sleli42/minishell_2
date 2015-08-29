@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 10:00:01 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 23:37:55 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 04:13:29 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void				del_array(char ***array);
 char				*ft_epur_str(char *s);
 int					lst_len(t_list *lst);
 int					get_next_line(int const fd, char **line);
-char				*my_strstr(char *s, char *tofind);
+char				*my_strstr(char *s);
 
 #endif

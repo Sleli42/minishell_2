@@ -6,7 +6,7 @@
 /*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/27 23:29:15 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/28 23:17:56 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/08/29 05:16:31 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,29 @@ int		check_redirection(char *cmd)
 		}
 	}
 	return (0);
+}
+
+void	erase_and_replace(t_all *all)
+{
+	printf("erasenreplace |%s|\n", all->cmd);
+	printf("redirect_cmd : %s\n", all->redirect_cmd);
+	all->redirection = my_split(all->cmd, ' ');
+	write(1, "segfault\n", 9);
+	display_tab(all->redirection);
+	exit(1);
+}
+
+void	add_to_end(t_all *all)
+{
+	printf("addtoend |%s|\n", all->cmd);
+}
+
+void	read_file(t_all *all)
+{
+	printf("readfile |%s|\n", all->cmd);
+}
+
+void	read_stdin(t_all *all)
+{
+	printf("readstdin |%s|\n", all->cmd);
 }
