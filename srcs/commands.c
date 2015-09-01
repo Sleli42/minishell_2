@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 04:12:12 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/29 05:09:51 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/09/01 05:10:27 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	try_exec_cmd(t_all *all)
 
 	all->cmd = ft_epur_str(all->cmd);
 	argv_bin = ft_strsplit(all->cmd, ' ');
+	display_tab(argv_bin);
 	exec_right_binary(all, argv_bin);
 	del_array(&argv_bin);
 }

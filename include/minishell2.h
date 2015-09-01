@@ -6,7 +6,7 @@
 /*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:05:42 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/29 10:02:09 by sleli42          ###   ########.fr       */
+/*   Updated: 2015/09/01 08:02:08 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 
 # include <stdlib.h>
 # include "libft.h"
+
+# define R_NULL	0
+# define SRD	1
+# define SRG	2
+# define DRD	3
+# define DRG	4
 
 typedef struct			s_node
 {
@@ -45,6 +51,9 @@ typedef struct			s_all
 	char				**cmd2exec;
 	char				**path2exec;
 	char				**redirection;
+	int					redir_name;
+	int					fd2open;
+	int					fd2read;
 }						t_all;
 
 typedef	struct			s_action
@@ -86,6 +95,7 @@ void			try_exec_cmd(t_all *all);
 */
 int				good_access(char *bin);
 char			*create_path(char *path, char *bin);
+void			choose_dup(t_all *all);
 void			exec_right_binary(t_all *all, char **argv_bin);
 void			exec_binary(char *bin, char **argv_bin, char **env);
 /*

@@ -6,7 +6,7 @@
 /*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/27 23:29:15 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/29 10:47:24 by sleli42          ###   ########.fr       */
+/*   Updated: 2015/09/01 08:19:18 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,21 @@ static char		**my_split(char *s, char c)
 */
 void	erase_and_replace(t_all *all)
 {
-	int	fd;
+	char	**argv;
 
-	fd = 0;
-//	printf("all->cmd |%s|\n", all->cmd);
-//	printf("redirect_cmd : %s\n", all->redirect_cmd);
+	argv = NULL;
 	all->redirection = ft_strsplit(all->cmd, '>');
 	all->redirection[1] = ft_epur_str(all->redirection[1]);
-//	printf("%s\n", all->redirection[ft_tablen(all->redirection) - 1]);
-	if (!(fd = open(all->redirection[1], (O_WRONLY | O_CREAT | O_TRUNC), 0644)))
+	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_TRUNC),  0644)))
 		printf("open error \n");
-	exit(1);
+	if (all->redirection[0][ft_strlen(all->redirection[0]) - 1] == ' ')
+		all->redirection[0][ft_strlen(all->redirection[0]) - 1] = '\0';
+	argv = ft_strsplit(all->redirection[0], ' ');
+	all->redir_name = SRD;
+	exec_right_binary(all, argv);
+	del_array(&argv);
+	del_array(&all->redirection);
+	close(all->fd2open);
 }
 
 void	add_to_end(t_all *all)
@@ -92,7 +96,21 @@ void	add_to_end(t_all *all)
 
 void	read_file(t_all *all)
 {
-	printf("readfile |%s|\n", all->cmd);
+	char	**argv;
+
+	argv = NULL;
+	all->redirection = ft_strsplit(all->cmd, '<');
+	all->redirection[1] = ft_epur_str(all->redirection[1]);
+	if (!(all->fd2read = open(all->redirection[1], (O_WRONLY | O_TRUNC | O_APPEND),  0644)))
+		printf("open error \n");
+	if (all->redirection[0][ft_strlen(all->redirection[0]) - 1] == ' ')
+		all->redirection[0][ft_strlen(all->redirection[0]) - 1] = '\0';
+	argv = ft_strsplit(all->redirection[0], ' ');
+	all->redir_name = SRG;
+	exec_right_binary(all, argv);
+	del_array(&argv);
+	del_array(&all->redirection);
+	close(all->fd2open);
 }
 
 void	read_stdin(t_all *all)

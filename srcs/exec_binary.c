@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_binary.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 22:03:11 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/29 04:47:30 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/09/01 08:19:34 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ char	*create_path(char *path, char *bin)
 	return (tmp);
 }
 
+void	choose_dup(t_all *all)
+{
+	if (all->redir_name == SRD)
+		dup2(all->fd2open, STDOUT_FILENO);
+	if (all->redir_name == SRG)
+		dup2(STDOUT_FILENO, all->fd2read);
+}
+
 void	exec_right_binary(t_all *all, char **argv_bin)
 {
 	int		ct;
@@ -40,7 +48,11 @@ void	exec_right_binary(t_all *all, char **argv_bin)
 	{
 		bin_tmp = create_path(all->path2exec[ct], argv_bin[0]);
 		if (good_access(bin_tmp))
+		{
+			if (all->redir_name != R_NULL)
+				choose_dup(all);
 			exec_binary(bin_tmp, argv_bin, all->dupenv);
+		}
 		ft_strdel(&bin_tmp);
 		ct++;
 	}

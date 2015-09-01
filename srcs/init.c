@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 03:07:46 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/08/29 05:08:43 by lubaujar         ###   ########.fr       */
+/*   Updated: 2015/09/01 07:54:34 by sleli42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ t_all	*init_all(char **env)
 	while (env[i])
 		dlst_add_back(all->env, dlst_new(env[i++]));
 	all->path2exec = ft_strsplit(find_env_arg(all, "PATH") + 6, ':');
+	all->redir_name = R_NULL;
 	return (all);
 }
