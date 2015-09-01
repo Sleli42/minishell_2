@@ -17,12 +17,12 @@ void	exec_command(t_all *all)
 	int		ct;
 
 	ct = 0;
-	while (all->cmd2exec[ct] != NULL)
+	while (all->cmd2exec[ct])
 	{
 		ft_strdel(&all->cmd);
 		all->cmd = ft_epur_str(all->cmd2exec[ct]);
-		if (all->cmd[ft_strlen(all->cmd) - 1] == ' ')
-			all->cmd[ft_strlen(all->cmd) - 1] = '\0';
+		//if (all->cmd[ft_strlen(all->cmd) - 1] == ' ')
+		//	all->cmd[ft_strlen(all->cmd) - 1] = '\0';
 		if (!try_redirection_cmd(all))
 			if (!try_builtins_cmd(all))
 				try_exec_cmd(all);

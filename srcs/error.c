@@ -18,4 +18,9 @@ void	error(char *err)
 		ft_putendl("Malloc error.");
 	if (ft_strcmp(err, "DIR") == 0)
 		ft_putendl("cd '/dir/' error.");
+	if (ft_strcmp(err, "EXECVE") == 0)
+		ft_putendl("Execve error.");
+	if (ft_strcmp(err, "DUP2") == 0)
+		ft_putendl("Dup2 error.");
+	exit(0);
 }

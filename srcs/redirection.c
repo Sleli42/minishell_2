@@ -63,30 +63,35 @@ int		check_redirection(char *cmd)
 	}
 	return (0);
 }
-/*
-static char		**my_split(char *s, char c)
-{
-	printf("'%s'\n && cut by : '%c'\n", s, c);
-	return (NULL);
-}
-*/
+
 void	erase_and_replace(t_all *all)
 {
 	char	**argv;
 
 	argv = NULL;
+	//printf("cmd: |%s|\n", all->cmd);
 	all->redirection = ft_strsplit(all->cmd, '>');
+	//display_tab(all->redirection);
 	all->redirection[1] = ft_epur_str(all->redirection[1]);
-	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_TRUNC),  0644)))
+	//printf("|%s|\n", all->redirection[1]);
+	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_TRUNC), 0644)))
 		printf("open error \n");
-	if (all->redirection[0][ft_strlen(all->redirection[0]) - 1] == ' ')
-		all->redirection[0][ft_strlen(all->redirection[0]) - 1] = '\0';
+	//if (all->redirection[0][ft_strlen(all->redirection[0]) - 1] == ' ')
+	//	all->redirection[0][ft_strlen(all->redirection[0]) - 1] = '\0';
 	argv = ft_strsplit(all->redirection[0], ' ');
+	//display_tab(argv);
+	//exit(1);
 	all->redir_name = SRD;
+	//write(1, "before\n", 7);
 	exec_right_binary(all, argv);
-	del_array(&argv);
-	del_array(&all->redirection);
+	//write(1, "after\n", 6);
 	close(all->fd2open);
+	// close(all->fd2open);
+	// close(STDOUT_FILENO);
+	//loop(all);
+	//del_array(&argv);
+	//del_array(&all->redirection);
+	//exit(1);
 }
 
 void	add_to_end(t_all *all)
@@ -96,6 +101,8 @@ void	add_to_end(t_all *all)
 
 void	read_file(t_all *all)
 {
+	printf("readfile |%s|\n", all->cmd);
+	/*
 	char	**argv;
 
 	argv = NULL;
@@ -111,6 +118,7 @@ void	read_file(t_all *all)
 	del_array(&argv);
 	del_array(&all->redirection);
 	close(all->fd2open);
+	*/
 }
 
 void	read_stdin(t_all *all)

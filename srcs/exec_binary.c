@@ -31,10 +31,16 @@ char	*create_path(char *path, char *bin)
 
 void	choose_dup(t_all *all)
 {
+	//write(1, "before\n", 7);
 	if (all->redir_name == SRD)
-		dup2(all->fd2open, STDOUT_FILENO);
-	if (all->redir_name == SRG)
-		dup2(STDOUT_FILENO, all->fd2read);
+	{
+		//printf("redir name: %d\n", all->redir_name);
+		if (!(all->fd2open = dup(STDOUT_FILENO)))
+			error("DUP2");
+	}
+	//write(1, "after\n", 6);
+	//else if (all->redir_name == SRG)
+	//	dup2(STDOUT_FILENO, all->fd2read);
 }
 
 void	exec_right_binary(t_all *all, char **argv_bin)
@@ -44,14 +50,21 @@ void	exec_right_binary(t_all *all, char **argv_bin)
 
 	ct = 0;
 	bin_tmp = NULL;
+	// display_tab(all->path2exec);
+	// display_tab(argv_bin);
+	// exit(1);
 	while (all->path2exec[ct])
 	{
 		bin_tmp = create_path(all->path2exec[ct], argv_bin[0]);
+	//	printf("%s\n", bin_tmp);
 		if (good_access(bin_tmp))
 		{
+		//	write(1, "good access\n", 13);
 			if (all->redir_name != R_NULL)
 				choose_dup(all);
+			//write(1, "before\n", 7);
 			exec_binary(bin_tmp, argv_bin, all->dupenv);
+			//write(1, "after\n", 6);
 		}
 		ft_strdel(&bin_tmp);
 		ct++;
@@ -68,7 +81,7 @@ void	exec_binary(char *bin, char **argv_bin, char **env)
 		ft_putendl("No child process");
 	if (pid == 0)
 		if (execve(bin, argv_bin, env) == -1)
-			return ;
+			error("EXECVE");
 	if (pid > 0)
 		waitpid(pid, &buff, 0);
 }

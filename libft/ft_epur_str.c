@@ -28,12 +28,15 @@ char	*ft_epur_str(char *s)
 	{
 		if (s[i] == ' ' || s[i] == '\t')
 		{
-	    	ret[j++] = ' ';
+	    	ret[j++] = s[i++];
 			while (s[i] == ' ' || s[i] == '\t')
                 i++;
 		}
 		ret[j++] = s[i++];
 	}
-	ret[j] = '\0';
+	if (ret[j - 1] == ' ')
+		ret[j - 1] = '\0';
+	else
+		ret[j] = '\0';
 	return (ret);
 }

@@ -63,7 +63,7 @@ typedef	struct			s_action
 
 }						t_action;
 
-//void	loop(t_all *all);
+void	loop(t_all *all);
 /*
 ***	init.c
 */

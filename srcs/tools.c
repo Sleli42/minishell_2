@@ -82,14 +82,16 @@ void	goto_dir(t_all *all)
 
 void	free_all(t_all *all)
 {
-	while (all->env->lenght-- != 0)
-		dlst_del_one(all->env, all->env->head->s);
+	//while (all->env->lenght-- != 0)
+	//	dlst_del_one(all->env, all->env->head->s);
 	if (all->path2exec != NULL)
 		del_array(&all->path2exec);
 	if (all->dupenv != NULL)
 		del_array(&all->dupenv);
 	if (all->cmd != NULL)
 		ft_strdel(&all->cmd);
+	if (all->redirect_cmd)
+		ft_strdel(&all->redirect_cmd);
 	free(all);
 	all = NULL;
 	ft_putendl("exit");

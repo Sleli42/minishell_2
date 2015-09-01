@@ -32,7 +32,6 @@ int		try_redirection_cmd(t_all *all)
 	{">>", add_to_end},
 	{"<", read_file},
 	{"<<", read_stdin}};
-	printf("cmd: %s\n", all->cmd);
 	i = 0;
 	all->redirect_cmd = my_strstr(all->cmd);
 	if (all->redirect_cmd != NULL)
@@ -81,7 +80,6 @@ void	try_exec_cmd(t_all *all)
 
 	all->cmd = ft_epur_str(all->cmd);
 	argv_bin = ft_strsplit(all->cmd, ' ');
-	display_tab(argv_bin);
 	exec_right_binary(all, argv_bin);
 	del_array(&argv_bin);
 }
