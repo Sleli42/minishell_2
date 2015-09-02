@@ -72,8 +72,6 @@ void	erase_and_replace(t_all *all)
 	argv = NULL;
 	all->redirection = ft_strsplit(all->cmd, '>');
 	all->redirection[1] = ft_epur_str(all->redirection[1]);
-	//printf("|%s|\n", all->redirection[1]);
-//	exit(1);
 	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_TRUNC), 0644)))
 		printf("open error \n");
 	argv = ft_strsplit(all->redirection[0], ' ');
@@ -89,29 +87,45 @@ void	erase_and_replace(t_all *all)
 
 void	add_to_end(t_all *all)
 {
-	printf("addtoend |%s|\n", all->cmd);
+	//printf("addtoend |%s|\n", all->cmd);
+	char	**argv;
+	int		dupstdout;
+
+	argv = NULL;
+	all->redirection = ft_strsplit(all->cmd, '>');
+	all->redirection[1] = ft_epur_str(all->redirection[1] + 1);
+	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_APPEND), 0644)))
+		printf("open error \n");
+	argv = ft_strsplit(all->redirection[0], ' ');
+	dupstdout = dup(STDOUT_FILENO);
+	dup2(all->fd2open, STDOUT_FILENO);;
+	exec_right_binary(all, argv);
+	dup2(dupstdout, STDOUT_FILENO);
+	close(all->fd2open);
+	close(dupstdout);
+	del_array(&argv);
+	del_array(&all->redirection);
 }
 
 void	read_file(t_all *all)
 {
-	printf("readfile |%s|\n", all->cmd);
-	/*
 	char	**argv;
+	int		dupstdin;
 
 	argv = NULL;
 	all->redirection = ft_strsplit(all->cmd, '<');
 	all->redirection[1] = ft_epur_str(all->redirection[1]);
-	if (!(all->fd2read = open(all->redirection[1], (O_WRONLY | O_TRUNC | O_APPEND),  0644)))
+	if (!(all->fd2open = open(all->redirection[1], O_RDONLY)))
 		printf("open error \n");
-	if (all->redirection[0][ft_strlen(all->redirection[0]) - 1] == ' ')
-		all->redirection[0][ft_strlen(all->redirection[0]) - 1] = '\0';
 	argv = ft_strsplit(all->redirection[0], ' ');
-	all->redir_name = SRG;
+	dupstdin = dup(0);
+	dup2(all->fd2open, STDIN_FILENO);
+	close(all->fd2open);
 	exec_right_binary(all, argv);
+	dup2(dupstdin, STDIN_FILENO);
+	close(dupstdin);
 	del_array(&argv);
 	del_array(&all->redirection);
-	close(all->fd2open);
-	*/
 }
 
 void	read_stdin(t_all *all)

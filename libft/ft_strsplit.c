@@ -11,24 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-
-static char		*ft_strndup(char *s, size_t n)
-{
-	char	*ret;
-	size_t	ct;
-
-	ct = 0;
-	if (!(ret = (char *)malloc(sizeof(char) * n)))
-		return (NULL);
-	while (ct < n)
-	{
-		ret[ct] = s[ct];
-		ct++;
-	}
-	ret[ct] = '\0';
-	return (ret);
-}
 
 int				count_words(char *s, char c)
 {
@@ -42,7 +24,11 @@ int				count_words(char *s, char c)
 		while (s[i])
 		{
 			if (s[i] == c)
+			{
+				if (s[i + 1] == '\0')
+					break ;
 				ret++;
+			}
 			i++;
 		}
 		ret = ret + 1;
@@ -56,25 +42,22 @@ char			**ft_strsplit(char const *s, char c)
 	int		ct;
 	int		stop;
 	int		i;
+	int		j;
 
-	ct = 0;
+	ct = -1;
 	i = 0;
 	stop = count_words((char *)s, c);
-	write(1, "hello\n", 6);
 	if (!(array = (char **)malloc(sizeof(char *) * stop + 1)))
 		return (NULL);
-	while (ct < stop)
+	while (++ct < stop)
 	{
+		j = 0;
+		if (!(array[ct] = (char *)malloc(sizeof(char) * 100)))
+			return (NULL);
 		while (s[i] && s[i] != c)
-			i++;
-		array[ct] = ft_strndup((char *)s, (size_t)i);
-		//ft_strdup(ft_strncpy(array[ct], (char *)s, (size_t)i));
-		printf("%s\n", array[ct]);
-		i++;
-		ct++;
-		// if (array[ct][j - 1] == ' ')
-		// 	array[ct][j - 1] = '\0';
-		// else
+			array[ct][j++] = s[i++];
+		array[ct][j] = '\0';
+		i = i + 1;
 	}
 	array[ct] = NULL;
 	return (array);

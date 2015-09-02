@@ -21,12 +21,6 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define R_NULL	0
-# define SRD	1
-# define SRG	2
-# define DRD	3
-# define DRG	4
-
 typedef struct			s_node
 {
 	char				*s;
@@ -51,7 +45,6 @@ typedef struct			s_all
 	char				**cmd2exec;
 	char				**path2exec;
 	char				**redirection;
-	int					redir_name;
 	int					fd2open;
 }						t_all;
 
