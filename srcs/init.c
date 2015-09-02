@@ -42,7 +42,8 @@ t_all	*init_all(char **env)
 	all->redirect_cmd = (char *)malloc(sizeof(char));
 	while (env[i])
 		dlst_add_back(all->env, dlst_new(env[i++]));
-	all->path2exec = ft_strsplit(find_env_arg(all, "PATH") + 6, ':');
+	all->path2exec = ft_strsplit(find_env_arg(all, "PATH") + 5, ':');
+	exit(1);
 	all->redir_name = R_NULL;
 	return (all);
 }

@@ -72,6 +72,8 @@ void	erase_and_replace(t_all *all)
 	argv = NULL;
 	all->redirection = ft_strsplit(all->cmd, '>');
 	all->redirection[1] = ft_epur_str(all->redirection[1]);
+	//printf("|%s|\n", all->redirection[1]);
+//	exit(1);
 	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_TRUNC), 0644)))
 		printf("open error \n");
 	argv = ft_strsplit(all->redirection[0], ' ');

@@ -29,7 +29,7 @@ char	*ft_epur_str(char *s)
 		if (s[i] == ' ' || s[i] == '\t')
 		{
 	    	ret[j++] = s[i++];
-			while (s[i] == ' ' || s[i] == '\t')
+			while ((s[i] && s[i] == ' ') || (s[i] && s[i] == '\t'))
                 i++;
 		}
 		ret[j++] = s[i++];
