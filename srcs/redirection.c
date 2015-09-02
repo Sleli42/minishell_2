@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleli42 <sleli42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lubaujar <lubaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/27 23:29:15 by lubaujar          #+#    #+#             */
-/*   Updated: 2015/09/01 08:19:18 by sleli42          ###   ########.fr       */
+/*   Updated: 2015/09/02 09:11:05 by lubaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,31 +67,22 @@ int		check_redirection(char *cmd)
 void	erase_and_replace(t_all *all)
 {
 	char	**argv;
+	int		dupstdout;
 
 	argv = NULL;
-	//printf("cmd: |%s|\n", all->cmd);
 	all->redirection = ft_strsplit(all->cmd, '>');
-	//display_tab(all->redirection);
 	all->redirection[1] = ft_epur_str(all->redirection[1]);
-	//printf("|%s|\n", all->redirection[1]);
 	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_TRUNC), 0644)))
 		printf("open error \n");
-	//if (all->redirection[0][ft_strlen(all->redirection[0]) - 1] == ' ')
-	//	all->redirection[0][ft_strlen(all->redirection[0]) - 1] = '\0';
 	argv = ft_strsplit(all->redirection[0], ' ');
-	//display_tab(argv);
-	//exit(1);
-	all->redir_name = SRD;
-	//write(1, "before\n", 7);
-	exec_right_binary(all, argv);
-	//write(1, "after\n", 6);
+	dupstdout = dup(STDOUT_FILENO);
+	dup2(all->fd2open, STDOUT_FILENO);
 	close(all->fd2open);
-	// close(all->fd2open);
-	// close(STDOUT_FILENO);
-	//loop(all);
-	//del_array(&argv);
-	//del_array(&all->redirection);
-	//exit(1);
+	exec_right_binary(all, argv);
+	dup2(dupstdout, STDOUT_FILENO);
+	close(dupstdout);
+	del_array(&argv);
+	del_array(&all->redirection);
 }
 
 void	add_to_end(t_all *all)
