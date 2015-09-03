@@ -23,7 +23,7 @@ int		multiple_cmd(char *cmd)
 	return (0);
 }
 
-int		try_redirection_cmd(t_all *all)
+void		try_redirection_cmd(t_all *all)
 {
 	int							i;
 	static const	t_action	redirection[] =
@@ -39,14 +39,10 @@ int		try_redirection_cmd(t_all *all)
 		while (i < 4)
 		{
 			if (ft_strcmp(all->redirect_cmd, redirection[i].action_name) == 0)
-			{
 				redirection[i].f(all);
-				return (1);
-			}
 			i++;
 		}
 	}
-	return (0);
 }
 
 int		try_builtins_cmd(t_all *all)

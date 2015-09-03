@@ -21,9 +21,9 @@ void	exec_command(t_all *all)
 	{
 		ft_strdel(&all->cmd);
 		all->cmd = ft_epur_str(all->cmd2exec[ct]);
-		//if (all->cmd[ft_strlen(all->cmd) - 1] == ' ')
-		//	all->cmd[ft_strlen(all->cmd) - 1] = '\0';
-		if (!try_redirection_cmd(all))
+		if (check_redirection(all->cmd))
+			try_redirection_cmd(all);
+		else
 			if (!try_builtins_cmd(all))
 				try_exec_cmd(all);
 		ct++;
@@ -51,7 +51,7 @@ void	loop(t_all *all)
 		get_next_line(0, &buff);
 		if (*buff == 4)
 			free_all(all);
-		all->cmd2exec = parse_command(ft_strdup(buff));
+		all->cmd2exec = parse_command(buff);
 		exec_command(all);
 	}
 }

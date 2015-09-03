@@ -79,7 +79,7 @@ void			env_unset(t_all *all);
 ***	commandes.c
 */
 int				multiple_cmd(char *cmd);
-int				try_redirection_cmd(t_all *all);
+void			try_redirection_cmd(t_all *all);
 int				try_builtins_cmd(t_all *all);
 void			try_exec_cmd(t_all *all);
 /*
@@ -98,13 +98,17 @@ void			add_to_end(t_all *all);
 void			read_file(t_all *all);
 void			read_stdin(t_all *all);
 /*
-***	tools.c
+***	builtins_tools.c
 */
 void			update_oldpwd(t_all *all);
 void			pwd_display(t_all *all);
 char			*find_env_arg(t_all *all, char *arg2find);
 void			goto_dir(t_all *all);
 void			free_all(t_all *all);
+/*
+***	redirection_tools.c
+*/
+void			dup_and_exec(t_all *all, char **argv, int fd2back, int fd2dup);
 /*
 ***	error.c
 */

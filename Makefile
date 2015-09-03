@@ -22,7 +22,8 @@ SRC = main.c \
 	commands.c \
 	exec_binary.c \
 	redirection.c \
-	tools.c \
+	builtins_tools.c \
+	redirection_tools.c \
 	error.c \
 	signal.c \
 	debug.c

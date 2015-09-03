@@ -71,40 +71,29 @@ void	erase_and_replace(t_all *all)
 
 	argv = NULL;
 	all->redirection = ft_strsplit(all->cmd, '>');
+	//printf("|%s|\n", all->redirection[1]);
 	all->redirection[1] = ft_epur_str(all->redirection[1]);
-	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_TRUNC), 0644)))
+	if (!(all->fd2open = open(all->redirection[1], O_WRONLY | O_CREAT | O_TRUNC, 0644)))
 		printf("open error \n");
 	argv = ft_strsplit(all->redirection[0], ' ');
 	dupstdout = dup(STDOUT_FILENO);
-	dup2(all->fd2open, STDOUT_FILENO);
-	close(all->fd2open);
-	exec_right_binary(all, argv);
-	dup2(dupstdout, STDOUT_FILENO);
-	close(dupstdout);
-	del_array(&argv);
-	del_array(&all->redirection);
+	dup_and_exec(all, argv, dupstdout, STDOUT_FILENO);
 }
 
 void	add_to_end(t_all *all)
 {
-	//printf("addtoend |%s|\n", all->cmd);
 	char	**argv;
 	int		dupstdout;
 
 	argv = NULL;
 	all->redirection = ft_strsplit(all->cmd, '>');
-	all->redirection[1] = ft_epur_str(all->redirection[1] + 1);
-	if (!(all->fd2open = open(all->redirection[1], (O_WRONLY | O_CREAT | O_APPEND), 0644)))
+	all->redirection[1] = ft_epur_str(all->redirection[1 + 1]);
+	if (!(all->fd2open = open(all->redirection[1], O_WRONLY | O_CREAT | O_APPEND, 0644)))
 		printf("open error \n");
+	all->redirection[0] = ft_epur_str(all->redirection[0]);
 	argv = ft_strsplit(all->redirection[0], ' ');
 	dupstdout = dup(STDOUT_FILENO);
-	dup2(all->fd2open, STDOUT_FILENO);;
-	exec_right_binary(all, argv);
-	dup2(dupstdout, STDOUT_FILENO);
-	close(all->fd2open);
-	close(dupstdout);
-	del_array(&argv);
-	del_array(&all->redirection);
+	dup_and_exec(all, argv, dupstdout, STDOUT_FILENO);
 }
 
 void	read_file(t_all *all)
@@ -119,13 +108,7 @@ void	read_file(t_all *all)
 		printf("open error \n");
 	argv = ft_strsplit(all->redirection[0], ' ');
 	dupstdin = dup(0);
-	dup2(all->fd2open, STDIN_FILENO);
-	close(all->fd2open);
-	exec_right_binary(all, argv);
-	dup2(dupstdin, STDIN_FILENO);
-	close(dupstdin);
-	del_array(&argv);
-	del_array(&all->redirection);
+	dup_and_exec(all, argv, dupstdin, STDIN_FILENO);
 }
 
 void	read_stdin(t_all *all)
