@@ -24,3 +24,14 @@ void	error(char *err)
 		ft_putendl("Dup2 error.");
 	exit(0);
 }
+
+void	shell_error(char *err, char *toopen)
+{
+	if (ft_strcmp(err, "OPEN") == 0)
+	{
+		ft_putstr("sh: ");
+		ft_putstr(toopen);
+		ft_putendl(": No such file or directory");
+	}
+	exit(0);
+}

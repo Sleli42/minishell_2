@@ -113,6 +113,7 @@ void			dup_and_exec(t_all *all, char **argv, int fd2back, int fd2dup);
 ***	error.c
 */
 void			error(char *err);
+void			shell_error(char *err, char *toopen);
 /*
 ***	signal.c
 */
