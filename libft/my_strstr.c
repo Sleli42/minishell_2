@@ -36,6 +36,8 @@ char	*my_strstr(char *s)
 			else
 				return ("<");
 		}
+		else if (tmp[i] == '|')
+			return ("|");
 		i++;
 	}
 	return (NULL);

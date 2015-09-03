@@ -92,7 +92,7 @@ void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
 ***	redirection.c
 */
-int				check_redirection(char *cmd);
+void			create_pipe(t_all *all);
 void			erase_and_replace(t_all *all);
 void			add_to_end(t_all *all);
 void			read_file(t_all *all);
@@ -108,6 +108,7 @@ void			free_all(t_all *all);
 /*
 ***	redirection_tools.c
 */
+int				check_redirection(char *cmd);
 void			dup_and_exec(t_all *all, char **argv, int fd2back, int fd2dup);
 /*
 ***	error.c

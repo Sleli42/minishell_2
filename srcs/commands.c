@@ -28,7 +28,8 @@ void		try_redirection_cmd(t_all *all)
 	int							i;
 	static const	t_action	redirection[] =
 
-	{{">", erase_and_replace},
+	{{"|", create_pipe},
+	{">", erase_and_replace},
 	{">>", add_to_end},
 	{"<", read_file},
 	{"<<", read_stdin}};
@@ -36,7 +37,7 @@ void		try_redirection_cmd(t_all *all)
 	all->redirect_cmd = my_strstr(all->cmd);
 	if (all->redirect_cmd != NULL)
 	{
-		while (i < 4)
+		while (i < 5)
 		{
 			if (ft_strcmp(all->redirect_cmd, redirection[i].action_name) == 0)
 				redirection[i].f(all);

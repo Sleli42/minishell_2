@@ -48,21 +48,44 @@
        si besoin est, mais prenez note des points suivants.
  				      ======================================================= */
 
-int		check_redirection(char *cmd)
+       	/* no works ... */
+
+void	create_pipe(t_all *all)
 {
-	if (cmd && *cmd)
+	char	**argv;
+	pid_t	pid;
+	int		fd[2];
+	int		dupfd;
+
+	all->redirection = ft_strsplit(all->cmd, '|');
+	pipe(fd);
+	pid = fork();
+	if (pid)
 	{
-		while (*cmd)
-		{
-			if (*cmd == '>' || *cmd == '<'
-				|| (*cmd == '>' && (*cmd +1) == '>')
-				|| (*cmd == '<' && (*cmd +1) == '<'))
-				return (1);
-			cmd++;
-		}
+		dupfd = dup(STDIN_FILENO);
+		close(fd[STDOUT_FILENO]);
+		dup2(fd[STDIN_FILENO], STDIN_FILENO);
+		all->redirection[0] = ft_epur_str(all->redirection[0]);
+		argv = ft_strsplit(all->redirection[0], ' ');
+		exec_right_binary(all, argv);
+		close(fd[STDIN_FILENO]);
+		dup2(dupfd, STDIN_FILENO);
+		wait(&pid);
 	}
-	return (0);
+	else
+	{
+		close(fd[STDIN_FILENO]);
+		dup2(fd[STDOUT_FILENO], STDOUT_FILENO);
+		del_array(&argv);
+		all->redirection[1] = ft_epur_str(all->redirection[1]);
+		argv = ft_strsplit(all->redirection[1], ' ');
+		exec_right_binary(all, argv);
+		close(fd[STDOUT_FILENO]);
+		exit (0);
+	}
 }
+
+			/* no works ... */
 
 void	erase_and_replace(t_all *all)
 {
@@ -112,15 +135,16 @@ void	read_file(t_all *all)
 
 void	read_stdin(t_all *all)
 {
-	char	**argv;
-	int		dupstdin;
+	printf("read_stdin: %s\n", all->cmd);
+	// char	**argv;
+	// int		dupstdin;
 
-	argv = NULL;
-	all->redirection = ft_strsplit(all->cmd, '<');
-	all->redirection[1] = ft_epur_str(all->redirection[1 + 1]);
-	if ((all->fd2open = open(all->redirection[1], O_RDONLY)) == -1)
-		shell_error("OPEN", all->redirection[1]);
-	argv = ft_strsplit(all->redirection[0], ' ');
-	dupstdin = dup(0);
-	dup_and_exec(all, argv, dupstdin, STDIN_FILENO);
+	// argv = NULL;
+	// all->redirection = ft_strsplit(all->cmd, '<');
+	// all->redirection[1] = ft_epur_str(all->redirection[1 + 1]);
+	// if ((all->fd2open = open(all->redirection[1], O_RDONLY)) == -1)
+	// 	shell_error("OPEN", all->redirection[1]);
+	// argv = ft_strsplit(all->redirection[0], ' ');
+	// dupstdin = dup(0);
+	// dup_and_exec(all, argv, dupstdin, STDIN_FILENO);
 }
