@@ -41,23 +41,7 @@ void	dup_and_exec(t_all *all, char **argv, int fd2back, int fd2dup)
 
 /* ====================================================
 
-int pipe(int pipefd[2]);
-Le programme suivant crée un tube puis se dédouble (fork(2)) pour créer un processus fils.
-Le processus fils hérite d'un ensemble dupliqué de descripteurs de fichier
-qui font référence au même tube. Après le fork(2),
-chaque processus ferme les descripteurs dont il n'a pas besoin pour le tube (voir pipe(7)).
-Le père écrit alors la chaîne contenue dans l'argument
-de la ligne de commande du programme et le fils lit cette chaîne,
-un octet à la fois, qu'il affiche sur sa sortie standard.
-
-
-pid_t	father;
-	int		fd[2];
-	int		save;
-
-	pipe(fd);
-	father = fork();
-	if (father)
+if (father)
 	{
 		close(fd[1]);
 		save = dup(0);

@@ -50,53 +50,220 @@
 
        	/* no works ... */
 
+// void	create_pipe(t_all *all)
+// {
+// 	char	**argv;
+// 	pid_t	pid;
+// 	int		fd[2];
+// 	int		dupfd;
+
+// 	all->redirection = ft_strsplit(all->cmd, '|');
+// 	pipe(fd);
+// 	pid = fork();
+// 	if (pid)
+// 	{
+// 		dupfd = dup(STDIN_FILENO);
+// 		close(fd[STDOUT_FILENO]);
+// 		dup2(fd[STDIN_FILENO], STDIN_FILENO);
+// 		all->redirection[0] = ft_epur_str(all->redirection[0]);
+// 		argv = ft_strsplit(all->redirection[0], ' ');
+// 		exec_right_binary(all, argv);
+// 		close(fd[STDIN_FILENO]);
+// 		dup2(dupfd, STDIN_FILENO);
+// 		wait(&pid);
+// 	}
+// 	else
+// 	{
+// 		close(fd[STDIN_FILENO]);
+// 		dup2(fd[STDOUT_FILENO], STDOUT_FILENO);
+// 		del_array(&argv);
+// 		all->redirection[1] = ft_epur_str(all->redirection[1]);
+// 		argv = ft_strsplit(all->redirection[1], ' ');
+// 		exec_right_binary(all, argv);
+// 		close(fd[STDOUT_FILENO]);
+// 		exit (0);
+// 	}
+// }
+
+// void	create_pipe(t_all *all)
+// {
+// 	int		fd[2];
+// 	pid_t	pid;
+// 	char	*cmd2exec;
+// 	char	**argv;
+// //	int		save = 0;
+
+// 	pipe(fd);
+// 	pid = fork();
+// 	all->redirection = ft_strsplit(all->cmd, '|');
+// 	if (pid == 0)	/*child*/
+// 	{
+// 		all->redirection[0] = ft_epur_str(all->redirection[0]);
+// 		argv = ft_strsplit(all->redirection[0], ' ');
+// 		// cmd2exec = create_good_path(all ,argv);
+// 		close(fd[1]);
+// 		//save = dup(0);
+// 		dup2(fd[0], 0);
+// 		// dup2(fd[1], STDOUT_FILENO);
+// 		execve(cmd2exec, argv, all->dupenv);
+// 		close(fd[0]);
+// 		// dup2(save, 0);
+// 		// wait(&pid);
+// 		del_array(&argv);
+// 		del_array(&all->redirection);
+// 	}
+// 	else
+// 	{
+// 		// pid = fork();
+// 		// if (pid == 0)	/*father*/
+// 		// {
+// 			all->redirection[1] = ft_epur_str(all->redirection[1]);
+// 			argv = ft_strsplit(all->redirection[1], ' ');
+// 			//cmd2exec = create_good_path(all ,argv);
+// 			close(fd[0]);
+// 			dup2(fd[1], 1);
+// 			execve(cmd2exec, argv, all->dupenv);
+// 			close(fd[1]);
+// 			del_array(&argv);
+// 			del_array(&all->redirection);
+// 		//}
+// 	}
+// }
+
+			/* no works ... */
+static char		*create_good_path(t_all *all, char **argv_bin)
+{
+	int		ct = 0;
+	char	*bin_tmp;
+
+	bin_tmp = NULL;
+	while (all->path2exec[ct])
+	{
+		bin_tmp = create_path(all->path2exec[ct], argv_bin[0]);
+		if (good_access(bin_tmp))
+			return (bin_tmp);
+		ft_strdel(&bin_tmp);
+		ct++;
+	}
+	return (NULL);
+}
+
+// static void	exec_child(t_all *all, char **argv, int *fd)
+// {
+// 	//pid_t	child;
+
+// 	close(fd[1]);
+// 	dup2(fd[0], 0);
+// 	close(fd[0]);
+// 	//child = fork();
+// 	//if (child > 0)
+// 	//	wait(NULL);
+// 	//if (child == 0)
+// 		execve(create_good_path(all, argv), argv, all->dupenv);
+// }
+
+// static void	exec_father(t_all *all, char **argv, int *fd)
+// {
+// 	pid_t	father;
+
+// 	close(fd[0]);
+// 	dup2(fd[1], 1);
+// 	close(fd[1]);
+// 	father = fork();
+// 	if (father > 0)
+// 		wait(NULL);
+// 	if (father == 0)
+// 		execve(create_good_path(all, argv), argv, all->dupenv);
+// }
+
+void	exec_process(t_all *all, char **argv)
+{
+	char	*bin;
+	int		buff;
+	pid_t	pid;
+
+	bin = create_good_path(all, argv);
+	pid = fork();
+	if ((!pid))
+	{
+		execve(bin, argv, all->dupenv);
+		ft_strdel(&bin);
+		exit(0);
+	}
+	else if (pid > 0)
+		waitpid(pid, &buff, 0);
+}
+
 void	create_pipe(t_all *all)
 {
-	char	**argv;
-	pid_t	pid;
 	int		fd[2];
-	int		dupfd;
+	pid_t	pid;
+	char	**argv1;
+	char	**argv2;
+	int		save = 0;
+	// int		save2 = 0;
 
-	all->redirection = ft_strsplit(all->cmd, '|');
+	//save1 = dup(0);
 	pipe(fd);
 	pid = fork();
-	if (pid)
+	all->redirection = ft_strsplit(all->cmd, '|');
+	all->redirection[0] = ft_epur_str(all->redirection[0]);
+	argv1 = ft_strsplit(all->redirection[0], ' ');
+	all->redirection[1] = ft_epur_str(all->redirection[1]);
+	argv2 = ft_strsplit(all->redirection[1], ' ');
+	//display_tab(argv2);
+	//exit(1);
+	// save = dup(1);
+	// save2 = dup(0);
+	save = dup(1);
+	if (pid == 0)
 	{
-		dupfd = dup(STDIN_FILENO);
-		close(fd[STDOUT_FILENO]);
-		dup2(fd[STDIN_FILENO], STDIN_FILENO);
-		all->redirection[0] = ft_epur_str(all->redirection[0]);
-		argv = ft_strsplit(all->redirection[0], ' ');
-		exec_right_binary(all, argv);
-		close(fd[STDIN_FILENO]);
-		dup2(dupfd, STDIN_FILENO);
-		wait(&pid);
+		close(fd[1]);
+		dup2(fd[0], 0);
+		close(fd[0]);
+		execve(create_good_path(all, argv2), argv2, all->dupenv);
+		exit(0);
 	}
 	else
 	{
-		close(fd[STDIN_FILENO]);
-		dup2(fd[STDOUT_FILENO], STDOUT_FILENO);
-		del_array(&argv);
-		all->redirection[1] = ft_epur_str(all->redirection[1]);
-		argv = ft_strsplit(all->redirection[1], ' ');
-		exec_right_binary(all, argv);
-		close(fd[STDOUT_FILENO]);
-		exit (0);
+		pid_t pid2 = fork();
+		if (pid2 == 0)
+		{
+			close(fd[0]);
+			dup2(fd[1], 1);
+			close(fd[1]);
+			execve(create_good_path(all, argv1), argv1, all->dupenv);
+			exit(0);
+		}
+		else
+		{
+			dup2(save, 1);
+			close(save);
+			waitpid(pid2, NULL, 0);
+		}
+		//write(1, "first2\n", 7);
+		//buff = execve(create_good_path(all, argv1), argv1, all->dupenv);
+		//waitpid(pid, &buff, 0);
+		//waitpid(pid, NULL, 0);
 	}
+	// dup2(save2, 0);
+	// dup2(save, 1);
+	// close(save);
+	// close(save2);
 }
-
-			/* no works ... */
 
 void	erase_and_replace(t_all *all)
 {
 	char	**argv;
 	int		dupstdout;
+	char	*tmp;
 
 	argv = NULL;
 	all->redirection = ft_strsplit(all->cmd, '>');
-	all->redirection[1] = ft_epur_str(all->redirection[1]);
-	if ((all->fd2open = open(all->redirection[1], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+	tmp = ft_epur_str(all->redirection[1]);
+	if ((all->fd2open = open(tmp, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 		shell_error("OPEN", all->redirection[1]);
+	ft_strdel(&tmp);
 	argv = ft_strsplit(all->redirection[0], ' ');
 	dupstdout = dup(STDOUT_FILENO);
 	dup_and_exec(all, argv, dupstdout, STDOUT_FILENO);

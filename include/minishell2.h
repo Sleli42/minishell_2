@@ -14,8 +14,8 @@
 # define MINISHELL2_H
 
 # include <stdio.h>
-# include <sys/types.h>/*			UBUNTU				*/
-# include <sys/wait.h>/*			UBUNTU				*/
+//# include <sys/types.h>/*			UBUNTU				*/
+//# include <sys/wait.h>/*			UBUNTU				*/
 # include <unistd.h>
 
 # include <stdlib.h>
@@ -55,7 +55,7 @@ typedef	struct			s_action
 
 }						t_action;
 
-void	loop(t_all *all);
+void			loop(t_all *all);
 /*
 ***	init.c
 */
@@ -92,6 +92,7 @@ void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
 ***	redirection.c
 */
+void			exec_process(t_all *all, char **argv);
 void			create_pipe(t_all *all);
 void			erase_and_replace(t_all *all);
 void			add_to_end(t_all *all);
