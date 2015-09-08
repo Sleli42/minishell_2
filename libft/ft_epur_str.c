@@ -21,7 +21,7 @@ char	*ft_epur_str(char *s)
 
 	i = 0;
 	j = 0;
-	if (!(ret = (char *)malloc(sizeof(char) * ft_strlen(s))))
+	if (!(ret = (char *)malloc(sizeof(char) * 200)))
 		return (NULL);
 	while ((s[i] && s[i] == ' ') || (s[i] && s[i] == '\t'))
 		i++;

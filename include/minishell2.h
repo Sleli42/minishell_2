@@ -45,6 +45,7 @@ typedef struct			s_all
 	char				**cmd2exec;
 	char				**path2exec;
 	char				**redirection;
+	char				**pipe;
 	int					fd2open;
 }						t_all;
 
@@ -92,7 +93,8 @@ void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
 ***	redirection.c
 */
-void			exec_process(t_all *all, char **argv);
+void	dup_pipe_and_exec(t_all *all, int *fd, char **av, int dup);
+void	exec_pipe(t_all *all);
 void			create_pipe(t_all *all);
 void			erase_and_replace(t_all *all);
 void			add_to_end(t_all *all);

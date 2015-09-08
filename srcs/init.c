@@ -38,6 +38,7 @@ t_all	*init_all(char **env)
 	all->env = create_dlst();
 	all->cmd2exec = NULL;
 	all->redirection = NULL;
+	all->pipe = NULL;
 	all->cmd = NULL;
 	all->redirect_cmd = (char *)malloc(sizeof(char));
 	while (env[i])

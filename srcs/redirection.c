@@ -48,89 +48,6 @@
        si besoin est, mais prenez note des points suivants.
  				      ======================================================= */
 
-       	/* no works ... */
-
-// void	create_pipe(t_all *all)
-// {
-// 	char	**argv;
-// 	pid_t	pid;
-// 	int		fd[2];
-// 	int		dupfd;
-
-// 	all->redirection = ft_strsplit(all->cmd, '|');
-// 	pipe(fd);
-// 	pid = fork();
-// 	if (pid)
-// 	{
-// 		dupfd = dup(STDIN_FILENO);
-// 		close(fd[STDOUT_FILENO]);
-// 		dup2(fd[STDIN_FILENO], STDIN_FILENO);
-// 		all->redirection[0] = ft_epur_str(all->redirection[0]);
-// 		argv = ft_strsplit(all->redirection[0], ' ');
-// 		exec_right_binary(all, argv);
-// 		close(fd[STDIN_FILENO]);
-// 		dup2(dupfd, STDIN_FILENO);
-// 		wait(&pid);
-// 	}
-// 	else
-// 	{
-// 		close(fd[STDIN_FILENO]);
-// 		dup2(fd[STDOUT_FILENO], STDOUT_FILENO);
-// 		del_array(&argv);
-// 		all->redirection[1] = ft_epur_str(all->redirection[1]);
-// 		argv = ft_strsplit(all->redirection[1], ' ');
-// 		exec_right_binary(all, argv);
-// 		close(fd[STDOUT_FILENO]);
-// 		exit (0);
-// 	}
-// }
-
-// void	create_pipe(t_all *all)
-// {
-// 	int		fd[2];
-// 	pid_t	pid;
-// 	char	*cmd2exec;
-// 	char	**argv;
-// //	int		save = 0;
-
-// 	pipe(fd);
-// 	pid = fork();
-// 	all->redirection = ft_strsplit(all->cmd, '|');
-// 	if (pid == 0)	/*child*/
-// 	{
-// 		all->redirection[0] = ft_epur_str(all->redirection[0]);
-// 		argv = ft_strsplit(all->redirection[0], ' ');
-// 		// cmd2exec = create_good_path(all ,argv);
-// 		close(fd[1]);
-// 		//save = dup(0);
-// 		dup2(fd[0], 0);
-// 		// dup2(fd[1], STDOUT_FILENO);
-// 		execve(cmd2exec, argv, all->dupenv);
-// 		close(fd[0]);
-// 		// dup2(save, 0);
-// 		// wait(&pid);
-// 		del_array(&argv);
-// 		del_array(&all->redirection);
-// 	}
-// 	else
-// 	{
-// 		// pid = fork();
-// 		// if (pid == 0)	/*father*/
-// 		// {
-// 			all->redirection[1] = ft_epur_str(all->redirection[1]);
-// 			argv = ft_strsplit(all->redirection[1], ' ');
-// 			//cmd2exec = create_good_path(all ,argv);
-// 			close(fd[0]);
-// 			dup2(fd[1], 1);
-// 			execve(cmd2exec, argv, all->dupenv);
-// 			close(fd[1]);
-// 			del_array(&argv);
-// 			del_array(&all->redirection);
-// 		//}
-// 	}
-// }
-
-			/* no works ... */
 static char		*create_good_path(t_all *all, char **argv_bin)
 {
 	int		ct = 0;
@@ -148,108 +65,79 @@ static char		*create_good_path(t_all *all, char **argv_bin)
 	return (NULL);
 }
 
-// static void	exec_child(t_all *all, char **argv, int *fd)
-// {
-// 	//pid_t	child;
-
-// 	close(fd[1]);
-// 	dup2(fd[0], 0);
-// 	close(fd[0]);
-// 	//child = fork();
-// 	//if (child > 0)
-// 	//	wait(NULL);
-// 	//if (child == 0)
-// 		execve(create_good_path(all, argv), argv, all->dupenv);
-// }
-
-// static void	exec_father(t_all *all, char **argv, int *fd)
-// {
-// 	pid_t	father;
-
-// 	close(fd[0]);
-// 	dup2(fd[1], 1);
-// 	close(fd[1]);
-// 	father = fork();
-// 	if (father > 0)
-// 		wait(NULL);
-// 	if (father == 0)
-// 		execve(create_good_path(all, argv), argv, all->dupenv);
-// }
-
-void	exec_process(t_all *all, char **argv)
+void	dup_pipe_and_exec(t_all *all, int *fd, char **av, int dup)
 {
-	char	*bin;
-	int		buff;
-	pid_t	pid;
-
-	bin = create_good_path(all, argv);
-	pid = fork();
-	if ((!pid))
+	if (dup == 1)
 	{
-		execve(bin, argv, all->dupenv);
-		ft_strdel(&bin);
-		exit(0);
+		close(fd[0]);
+		dup2(fd[1], 1);
+		close(fd[1]);
+		execve(create_good_path(all, av), av, all->dupenv);
 	}
-	else if (pid > 0)
-		waitpid(pid, &buff, 0);
-}
-
-void	create_pipe(t_all *all)
-{
-	int		fd[2];
-	pid_t	pid;
-	char	**argv1;
-	char	**argv2;
-	int		save = 0;
-	// int		save2 = 0;
-
-	//save1 = dup(0);
-	pipe(fd);
-	pid = fork();
-	all->redirection = ft_strsplit(all->cmd, '|');
-	all->redirection[0] = ft_epur_str(all->redirection[0]);
-	argv1 = ft_strsplit(all->redirection[0], ' ');
-	all->redirection[1] = ft_epur_str(all->redirection[1]);
-	argv2 = ft_strsplit(all->redirection[1], ' ');
-	//display_tab(argv2);
-	//exit(1);
-	// save = dup(1);
-	// save2 = dup(0);
-	save = dup(1);
-	if (pid == 0)
+	else
 	{
 		close(fd[1]);
 		dup2(fd[0], 0);
 		close(fd[0]);
-		execve(create_good_path(all, argv2), argv2, all->dupenv);
-		exit(0);
+		execve(create_good_path(all, av), av, all->dupenv);
 	}
-	else
+}
+
+void	exec_pipe(t_all *all)
+{
+	pid_t	pid;
+	int		fd[2];
+	int		i;
+
+	i = 0;
+	while (all->pipe[i])
 	{
-		pid_t pid2 = fork();
-		if (pid2 == 0)
+		if (pipe(fd) == -1)
+			error("PIPE");
+		if ((pid = fork()) == -1)
+			error("FORK");
+		else if (pid == 0)
 		{
-			close(fd[0]);
-			dup2(fd[1], 1);
-			close(fd[1]);
-			execve(create_good_path(all, argv1), argv1, all->dupenv);
+			if (all->pipe[i + 1])
+			{
+				all->pipe[i] = ft_epur_str(all->pipe[i]);
+				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i], ' '), 1);
+			}
+			else
+			{
+				all->pipe[i] = ft_epur_str(all->pipe[i]);
+				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i], ' '), 0);
+			}
 			exit(0);
 		}
 		else
 		{
-			dup2(save, 1);
-			close(save);
-			waitpid(pid2, NULL, 0);
+			if (all->pipe[i + 1])
+			{
+				all->pipe[i + 1] = ft_epur_str(all->pipe[i + 1]);
+				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i + 1], ' '), 0);
+			}
+			exit(0);
 		}
-		//write(1, "first2\n", 7);
-		//buff = execve(create_good_path(all, argv1), argv1, all->dupenv);
-		//waitpid(pid, &buff, 0);
-		//waitpid(pid, NULL, 0);
+		i = i + 2;
 	}
-	// dup2(save2, 0);
-	// dup2(save, 1);
-	// close(save);
-	// close(save2);
+}
+
+void	create_pipe(t_all *all)
+{
+	pid_t	pid;
+
+	pid = 0;
+	all->pipe = ft_strsplit(all->cmd, '|');
+	if ((pid = fork()) == -1)
+		error("FORK");
+	else if (pid == 0)
+	{
+		exec_pipe(all);
+		exit(0);
+	}
+	else
+		wait(NULL);
 }
 
 void	erase_and_replace(t_all *all)

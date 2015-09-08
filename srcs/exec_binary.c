@@ -53,7 +53,7 @@ void	exec_binary(char *bin, char **argv_bin, char **env)
 
 	pid = fork();
 	if (pid == -1)
-		ft_putendl("No child process");
+		error("FORK");
 	if (pid == 0)
 		if (execve(bin, argv_bin, env) == -1)
 			error("EXECVE");
