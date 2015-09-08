@@ -21,6 +21,7 @@ SRC = main.c \
 	env.c \
 	commands.c \
 	exec_binary.c \
+	pipe.c \
 	redirection.c \
 	builtins_tools.c \
 	redirection_tools.c \

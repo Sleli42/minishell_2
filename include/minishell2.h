@@ -91,11 +91,14 @@ char			*create_path(char *path, char *bin);
 void			exec_right_binary(t_all *all, char **argv_bin);
 void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
+***	pipe.c
+*/
+void			dup_pipe_and_exec(t_all *all, int *fd, char **av, int dup);
+void			exec_pipe(t_all *all);
+void			create_pipe(t_all *all);
+/*
 ***	redirection.c
 */
-void	dup_pipe_and_exec(t_all *all, int *fd, char **av, int dup);
-void	exec_pipe(t_all *all);
-void			create_pipe(t_all *all);
 void			erase_and_replace(t_all *all);
 void			add_to_end(t_all *all);
 void			read_file(t_all *all);
@@ -111,6 +114,7 @@ void			free_all(t_all *all);
 /*
 ***	redirection_tools.c
 */
+char			*create_good_path(t_all *all, char **argv_bin);
 int				check_redirection(char *cmd);
 void			dup_and_exec(t_all *all, char **argv, int fd2back, int fd2dup);
 /*

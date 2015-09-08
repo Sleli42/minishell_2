@@ -12,6 +12,23 @@
 
 #include "minishell2.h"
 
+char		*create_good_path(t_all *all, char **argv_bin)
+{
+	int		ct = 0;
+	char	*bin_tmp;
+
+	bin_tmp = NULL;
+	while (all->path2exec[ct])
+	{
+		bin_tmp = create_path(all->path2exec[ct], argv_bin[0]);
+		if (good_access(bin_tmp))
+			return (bin_tmp);
+		ft_strdel(&bin_tmp);
+		ct++;
+	}
+	return (NULL);
+}
+
 int		check_redirection(char *cmd)
 {
 	if (cmd && *cmd)
@@ -38,26 +55,3 @@ void	dup_and_exec(t_all *all, char **argv, int fd2back, int fd2dup)
 	del_array(&argv);
 	del_array(&all->redirection);
 }
-
-/* ====================================================
-
-if (father)
-	{
-		close(fd[1]);
-		save = dup(0);
-		dup2(fd[0], 0);
-		ft_seek_tree(tree->right, e);
-		close(fd[0]);
-		dup2(save, 0);
-		wait(&father);
-	}
-	else
-	{
-		close(fd[0]);
-		dup2(fd[1], 1);
-		ft_seek_tree(tree->left, e);
-		close(fd[1]);
-		exit(0);
-	}
-
- 						==================================================== */

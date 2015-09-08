@@ -48,7 +48,8 @@ void	loop(t_all *all)
 	while (1)
 	{
 		ft_putstr("$: ");
-		get_next_line(0, &buff);
+		if (get_next_line(0, &buff) == 0)
+			return ;
 		if (*buff == 4)
 			free_all(all);
 		all->cmd2exec = parse_command(buff);
