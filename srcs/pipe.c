@@ -35,6 +35,7 @@ void	exec_pipe(t_all *all)
 	pid_t	pid;
 	int		fd[2];
 	int		i;
+	int		save = 0;
 
 	i = 0;
 	while (all->pipe[i])
@@ -49,13 +50,14 @@ void	exec_pipe(t_all *all)
 			{
 				all->pipe[i] = ft_epur_str(all->pipe[i]);
 				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i], ' '), 1);
+				exit(0);
 			}
 			else
 			{
 				all->pipe[i] = ft_epur_str(all->pipe[i]);
 				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i], ' '), 0);
+				exit(0);
 			}
-			exit(0);
 		}
 		else
 		{
@@ -63,19 +65,39 @@ void	exec_pipe(t_all *all)
 			{
 				all->pipe[i + 1] = ft_epur_str(all->pipe[i + 1]);
 				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i + 1], ' '), 0);
+				exit(0);
 			}
-			exit(0);
 		}
 		i = i + 2;
 	}
 }
 
+void	extended_create_pipe(t_all *all, char **dup, int ct)
+{
+	int		i;
+
+	i = 0;
+	if (all->pipe != NULL)
+		del_array(&all->pipe);
+	all->pipe = (char **)malloc(sizeof(char*) * 2 + 1);
+	while (i < 2 && dup[ct] != NULL)
+		all->pipe[i++] = ft_strdup(dup[ct++]);
+	all->pipe[i] = NULL;
+}
+
 void	create_pipe(t_all *all)
 {
 	pid_t	pid;
+	char	**tmp;
+	int		len;
 
 	pid = 0;
-	all->pipe = ft_strsplit(all->cmd, '|');
+	tmp = ft_strsplit(all->cmd, '|');
+	len = ft_tablen(tmp);
+	if ((len % 2) != 0)
+		extended_create_pipe(all, tmp, len - 1);
+	else
+		extended_create_pipe(all, tmp, len - 2);
 	if ((pid = fork()) == -1)
 		error("FORK");
 	else if (pid == 0)

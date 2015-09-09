@@ -17,6 +17,7 @@
 //# include <sys/types.h>/*			UBUNTU				*/
 //# include <sys/wait.h>/*			UBUNTU				*/
 # include <unistd.h>
+# include <string.h>
 
 # include <stdlib.h>
 # include "libft.h"
@@ -93,6 +94,7 @@ void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
 ***	pipe.c
 */
+void			extended_create_pipe(t_all *all, char **dup, int ct);
 void			dup_pipe_and_exec(t_all *all, int *fd, char **av, int dup);
 void			exec_pipe(t_all *all);
 void			create_pipe(t_all *all);
