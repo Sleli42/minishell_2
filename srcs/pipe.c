@@ -54,8 +54,11 @@ void	exec_pipe(t_all *all)
 			}
 			else
 			{
+				save = dup(1);
 				all->pipe[i] = ft_epur_str(all->pipe[i]);
 				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i], ' '), 0);
+				dup2(save, 1);
+				close(save);
 				exit(0);
 			}
 		}
