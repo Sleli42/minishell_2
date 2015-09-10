@@ -62,18 +62,30 @@ void	read_file(t_all *all)
 
 void	read_stdin(t_all *all)
 {
-	printf("read_stdin: %s\n", all->cmd);
-	// char	**argv;
-	// int		dupstdin;
+	char	**argv;
+	char	*key;
+	char	*buff;
+	int		dupstdin;
 
-	// argv = NULL;
-	// all->redirection = ft_strsplit(all->cmd, '<');
-	// all->redirection[1] = ft_epur_str(all->redirection[1 + 1]);
-	// if ((all->fd2open = open(all->redirection[1], O_RDONLY)) == -1)
-	// 	shell_error("OPEN", all->redirection[1]);
-	// argv = ft_strsplit(all->redirection[0], ' ');
-	// dupstdin = dup(0);
-	// dup_and_exec(all, argv, dupstdin, STDIN_FILENO);
+	argv = NULL;
+	buff = NULL;
+	all->redirection = ft_strsplit(all->cmd, '<');
+	key = ft_epur_str(all->redirection[1 + 1]);
+	argv = ft_strsplit(all->redirection[0], ' ');
+	while (1)
+	{
+		ft_putstr("heredoc> ");
+		get_next_line(0, &buff);
+		if (ft_strcmp(key, buff) == 0)
+		{
+			dupstdin = dup(0);
+			dup_and_exec(all, argv, dupstdin, STDIN_FILENO);
+			break ;
+		}
+		else
+			if (buff != NULL)
+				ft_strdel(&buff);
+	}
 }
 
 

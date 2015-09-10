@@ -34,9 +34,9 @@ void	exec_pipe(t_all *all)
 {
 	pid_t	pid;
 	int		fd[2];
-	int		i = 0;
+	int		nb_pipe = 0;
 
-	while (all->pipe[i])
+	if (all->pipe)
 	{
 		if (pipe(fd) == -1)
 			error("PIPE");
@@ -44,55 +44,17 @@ void	exec_pipe(t_all *all)
 			error("FORK");
 		else if (pid == 0)
 		{
-			if (all->pipe[i + 1])
-				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i], ' '), 1);
+			if (all->pipe[nb_pipe + 1])
+				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[nb_pipe], ' '), 1);
 			else
-				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i], ' '), 0);
+				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[nb_pipe], ' '), 0);
 			exit(0);
 		}
 		else
 		{
-			if (all->pipe[i + 1])
-				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[i + 1], ' '), 0);
+			if (all->pipe[nb_pipe + 1])
+				dup_pipe_and_exec(all, fd, ft_strsplit(all->pipe[nb_pipe + 1], ' '), 0);
 			exit(0);
-		}
-	}
-}
-
-void	exec_multi_pipe(t_all *all, int len)
-{
-	pid_t	pid;
-	int		fds[len * 2];
-	int		nb_cmd = 0;
-	int		i = 0;
-	char	**av;
-
-	while (i < len)
-		pipe(fds + i * 2);
-	av = NULL;
-	i = 0;
-	while (all->pipe[i])
-	{
-		if ((pid = fork()) == -1)
-			error("FORK");
-		else if (pid == 0)
-		{
-			if (all->pipe[i + 1])
-				dup2(fds[nb_cmd - 1 * 2], 0);
-			else
-				dup2(fds[nb_cmd * 2 + 1], 1);
-			while (len * 2)
-				close(fds[nb_cmd]);
-			if (av != NULL)
-				del_array(&av);
-			av = ft_strsplit(all->pipe[i], ' ');
-			execve(create_good_path(all, av), av, all->dupenv);
-			exit(0);
-		}
-		else
-		{
-			i++;
-			nb_cmd++;
 		}
 	}
 }
@@ -120,10 +82,10 @@ void	create_pipe(t_all *all)
 	tmp = ft_strsplit(all->cmd, '|');
 	len = ft_tablen(tmp);
 	extended_create_pipe(all, tmp, 0, len);
-	if (len > 2)
-		exec_multi_pipe(all, len);
-	else
-	{
+	// if (len > 2)
+	// 	exec_multi_pipe(all, len);
+	// else
+	// {
 		if ((pid = fork()) == -1)
 			error("FORK");
 		else if (pid == 0)
@@ -131,11 +93,47 @@ void	create_pipe(t_all *all)
 			exec_pipe(all);
 			exit(0);
 		}
-		else
+		else if (pid > 0)
 			wait(NULL);
-	}
 }
 
+// void	exec_multi_pipe(t_all *all, int len)
+// {
+// 	pid_t	pid;
+// 	int		fds[len * 2];
+// 	int		nb_cmd = 0;
+// 	int		i = 0;
+// 	char	**av;
+
+// 	while (i < len)
+// 		pipe(fds);
+// 	av = NULL;
+// 	i = 0;
+// 	while (all->pipe[i])
+// 	{
+// 		if ((pid = fork()) == -1)
+// 			error("FORK");
+// 		else if (pid == 0)
+// 		{
+// 			if (all->pipe[i])
+// 				dup2(fds[nb_cmd - 1 * 2], 0);
+// 			else if (all->pipe[i + 1])
+// 				dup2(fds[nb_cmd * 2 + 1], 1);
+// 			while (len * 2)
+// 				close(fds[nb_cmd]);
+// 			if (av != NULL)
+// 				del_array(&av);
+// 			av = ft_strsplit(all->pipe[i], ' ');
+// 			execve(create_good_path(all, av), av, all->dupenv);
+// 			exit(0);
+// 		}
+// 		else
+// 		{
+// 			i++;
+// 			nb_cmd++;
+// 		}
+// 	}
+// }
 
 
 
