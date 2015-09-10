@@ -75,3 +75,6 @@ void	read_stdin(t_all *all)
 	// dupstdin = dup(0);
 	// dup_and_exec(all, argv, dupstdin, STDIN_FILENO);
 }
+
+
+

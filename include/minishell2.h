@@ -94,8 +94,9 @@ void			exec_binary(char *bin, char **argv_bin, char **env);
 /*
 ***	pipe.c
 */
-void			extended_create_pipe(t_all *all, char **dup, int ct);
+void			extended_create_pipe(t_all *all, char **dup, int ct, int len);
 void			dup_pipe_and_exec(t_all *all, int *fd, char **av, int dup);
+void			exec_multi_pipe(t_all *all, int len);
 void			exec_pipe(t_all *all);
 void			create_pipe(t_all *all);
 /*
